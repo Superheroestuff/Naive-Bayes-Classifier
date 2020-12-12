@@ -73,8 +73,10 @@ void solve()
         {
             if(j<startingPosition || j > endingPosition)
             {
-                if(strcmp(people[j].party,"democrat") == 0) cntDemocrats++;
-                if(strcmp(people[j].party,"republican") == 0) cntRepublicans++;
+                if(strcmp(people[j].party,"democrat") == 0)
+                    cntDemocrats++;
+                if(strcmp(people[j].party,"republican") == 0)
+                    cntRepublicans++;
             }
         }
         double democratProbability = (double)cntDemocrats / cntDemocrats + cntRepublicans;
@@ -124,6 +126,41 @@ void solve()
             attrProbRepublicans[attr][0] = yRep / cntRepublicans;
             attrProbRepublicans[attr][1] = nRep / cntRepublicans;
         }
+
+
+
+        int cntRightClassifications = 0;
+        for(int p = startingPosition; p<= endingPosition; p++)
+        {
+            double probToBeDemocrat = democratProbability;
+            double probToBeRepublican = republicanProbability;
+
+            for(int attr = 0; attr<16; attr++)
+            {
+                if(people[p].attributes[attr] == 'y')
+                {
+                    probToBeDemocrat *= attrProbDemocrats[attr][0];
+                    probToBeRepublican *= attrProbRepublicans[attr][0];
+                }
+                else if(people[p].attributes[attr] == 'n')
+                {
+                    probToBeDemocrat *= attrProbDemocrats[attr][1];
+                    probToBeRepublican *= attrProbRepublicans[attr][1];
+                }
+            }
+
+            if(probToBeDemocrat > probToBeRepublican)
+            {
+                if(strcmp(people[p].party,"democrat") == 0)
+                    cntRightClassifications++;
+            }
+            else
+            {
+                if(strcmp(people[p].party,"republican") == 0)
+                    cntRightClassifications++;
+            }
+        }
+
     }
 
 }
