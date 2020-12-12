@@ -1,5 +1,6 @@
 #include<iostream>
 #include<fstream>
+#include<string.h>
 using namespace std;
 
 struct Person//tuple from the data set
@@ -58,7 +59,27 @@ void readFile(const char* fileName)
 
 void solve()
 {
+    int testingSetSize = peopleCnt / 10;
+    for(int i = 0 ; i < 10; i++)
+    {
+        int startingPosition = i*testingSetSize;
+        int endingPosition = startingPosition + testingSetSize;
 
+        int cntDemocrats = 0;
+        int cntRepublicans = 0;
+
+        //counting number of republicans and democrats outside the testing set
+        for(int j = 0; j<peopleCnt; j++)
+        {
+            if(j<startingPosition || j > endingPosition)
+            {
+                if(strcmp(people[j].party,"democrat") == 0) cntDemocrats++;
+                if(strcmp(people[j].party,"republican") == 0) cntRepublicans++;
+            }
+        }
+        double democratProbability = (double)cntDemocrats / cntDemocrats + cntRepublicans;
+        double republicanProbability = (double)cntRepublicans / cntDemocrats + cntRepublicans;
+    }
 
 }
 int main()
