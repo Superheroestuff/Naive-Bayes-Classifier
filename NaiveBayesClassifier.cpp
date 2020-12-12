@@ -60,6 +60,8 @@ void readFile(const char* fileName)
 void solve()
 {
     int testingSetSize = peopleCnt / 10;
+    double sumAccuracy = 0.0;
+
     for(int i = 0 ; i < 10; i++)
     {
         int startingPosition = i*testingSetSize;
@@ -79,6 +81,8 @@ void solve()
                     cntRepublicans++;
             }
         }
+        //cout<<"Num of democrats: "<<cntDemocrats<<endl;
+        //cout<<"Num of republicans: "<<cntRepublicans<<endl;
         double democratProbability = (double)cntDemocrats / cntDemocrats + cntRepublicans;
         double republicanProbability = (double)cntRepublicans / cntDemocrats + cntRepublicans;
 
@@ -121,12 +125,11 @@ void solve()
                 }
             }
 
-            attrProbDemocrats[attr][0] = yDem / cntDemocrats;
-            attrProbDemocrats[attr][1] = nDem / cntDemocrats;
-            attrProbRepublicans[attr][0] = yRep / cntRepublicans;
-            attrProbRepublicans[attr][1] = nRep / cntRepublicans;
+            attrProbDemocrats[attr][0] = (double)yDem / (double)cntDemocrats;
+            attrProbDemocrats[attr][1] = (double)nDem / (double)cntDemocrats;
+            attrProbRepublicans[attr][0] = (double)yRep / (double)cntRepublicans;
+            attrProbRepublicans[attr][1] = (double)nRep / (double)cntRepublicans;
         }
-
 
 
         int cntRightClassifications = 0;
@@ -160,12 +163,17 @@ void solve()
                     cntRightClassifications++;
             }
         }
-
+        double accuracy = (double)cntRightClassifications / (double)(endingPosition - startingPosition + 1);
+        sumAccuracy+=accuracy;
+        cout<<"Accuracy for "<<i+1<<" set is: "<<accuracy<<endl;
     }
-
+    cout<<endl;
+    cout<<"Average Accuracy is: "<<sumAccuracy/10<<endl;
 }
+
 int main()
 {
     readFile("votes.txt");
+    solve();
     return 0;
 }
