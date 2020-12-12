@@ -1,4 +1,4 @@
-#include<iostrema>
+#include<iostream>
 #include<fstream>
 using namespace std;
 
@@ -6,7 +6,7 @@ struct Person//tuple from the data set
 {
     char attributes[16];
     char party[20];
-}
+};
 
 Person people[500];//all people from the data set
 int peopleCnt;//number of people in the data set
@@ -14,7 +14,7 @@ int peopleCnt;//number of people in the data set
 void readFile(const char* fileName)
 {
     ifstream file;
-    file.open("fileName");
+    file.open(fileName);
     if(!file.is_open())
     {
         cout<<"File did not opened!"<<endl;
@@ -53,12 +53,16 @@ void readFile(const char* fileName)
         }
 
     }
-    peopleCnt++;//the last person from the data set
 }
 
 
-int main()
+void solve()
 {
 
+
+}
+int main()
+{
+    readFile("votes.txt");
     return 0;
 }
