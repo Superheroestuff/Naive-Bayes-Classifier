@@ -79,6 +79,51 @@ void solve()
         }
         double democratProbability = (double)cntDemocrats / cntDemocrats + cntRepublicans;
         double republicanProbability = (double)cntRepublicans / cntDemocrats + cntRepublicans;
+
+        double attrProbDemocrats[16][2];
+        double attrProbRepublicans[16][2];
+
+        for(int attr = 0; attr<16; attr++)
+        {
+            int yDem = 0;
+            int nDem = 0;
+            int yRep = 0;
+            int nRep = 0;
+            for(int k = 0; k<peopleCnt; k++)
+            {
+                if(k<startingPosition || k>endingPosition)
+                {
+                    char ch = people[k].attributes[attr];
+                    if(strcmp(people[k].party,"democrat") == 0)
+                    {
+                        if(ch == 'y')
+                        {
+                            yDem++;
+                        }
+                        else if(ch == 'n')
+                        {
+                            nDem++;
+                        }
+                    }
+                    else if(strcmp(people[k].party,"republican") == 0)
+                    {
+                        if(ch == 'y')
+                        {
+                            yRep++;
+                        }
+                        else if(ch == 'n')
+                        {
+                            nRep++;
+                        }
+                    }
+                }
+            }
+
+            attrProbDemocrats[attr][0] = yDem / cntDemocrats;
+            attrProbDemocrats[attr][1] = nDem / cntDemocrats;
+            attrProbRepublicans[attr][0] = yRep / cntRepublicans;
+            attrProbRepublicans[attr][1] = nRep / cntRepublicans;
+        }
     }
 
 }
